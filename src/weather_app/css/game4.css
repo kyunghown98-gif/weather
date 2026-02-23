@@ -1,0 +1,115 @@
+.game4-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(10px, 1.5vh, 16px);
+  min-height: 0;
+
+}
+
+.game4-title {
+   font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: var(--chang_yellow);
+}
+
+.game4-desc {
+  color: #9ca3af;
+  margin-bottom: clamp(4px, 1vh, 14px);
+  font-size: 12px;
+}
+
+.game4-score-wrap {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.game4-score-box {
+  background: #1f2937;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.game4-score-box.level {
+  color: #3b82f6;
+}
+
+.game4-score-box.best {
+  color: #facc15;
+}
+
+.game4-status {
+  height: 22px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.game4-status.win {
+  color: #22c55e;
+}
+
+.game4-status.lose {
+  color: #ef4444;
+}
+
+.game4-status.default {
+  color: var(--chang_yellow)
+}
+
+.game4-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.game4-color-btn {
+width: clamp(45px, 8vh, 90px);
+height: clamp(45px, 7vh, 90px);
+  border-radius: 14px;
+  transition: opacity 0.15s, box-shadow 0.15s;
+}
+
+.game4-color-btn.active {
+  opacity: 1;
+}
+
+.game4-color-btn.inactive {
+  opacity: 0.35;
+  box-shadow: none !important;
+}
+
+.game4-start-btn {
+  padding: 9px 28px;
+  border-radius: 10px;
+  border: none;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+
+
+@media (max-width: 850px) {
+  .game4-color-btn {
+    width: 70px;
+    height: 70px;
+  }
+
+  .game4-title {
+    font-size: 18px;
+  }
+
+  .game4-grid {
+    gap: 10px;
+  }
+}

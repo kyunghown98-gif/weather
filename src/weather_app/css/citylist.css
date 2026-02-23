@@ -1,6 +1,9 @@
 .citylist {
-  padding: 0 clamp(10px, 1.5vw, 20px);
-  padding-bottom: 16px;
+    padding: 0 clamp(10px, 1.5vw, 20px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .citylist .title {
@@ -25,8 +28,9 @@
 .citylist .city_items {
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1vh, 16px);
+gap: clamp(4px, 0.8vh, 16px);  
   cursor: pointer;
+  min-height: 0;    
 }
 
 .citylist .city_item {
@@ -34,11 +38,16 @@
   align-items: center;
   justify-content: space-between;
   border: 3px solid var(--yellow);
-  padding: 0 5px;
+    padding: 0 5px;
+  min-height: 0;
 }
-
+.citylist .city_item .city_icon{
+  width: clamp(28px, 4.5vh, 50px);
+  height: clamp(28px, 4.5vh, 50px);
+  object-fit: contain;
+}
 .citylist .city_item .city_name {
-  font-size: clamp(12px, 1.3vw, 20px);
+ font-size: clamp(10px, 1.3vh, 20px);
   margin-right: 0.5rem;
 }
 

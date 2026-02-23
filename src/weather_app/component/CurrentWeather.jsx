@@ -3,63 +3,66 @@ import { useSelector } from 'react-redux'
 import '../css/currentweather.css'
 
 const CurrentWeather = () => {
-  
-  const { currentWeather, loading, unit, weeklyForecast } = useSelector((state) => state.weather)
-
-  const todayForecast = weeklyForecast?.[0]
-
-  const getWeatherEmoji = (main, id) => {
-    switch (main) {
-      case "Clear": return "☀️";
-      case "Clouds": return id === 801 ? "🌤️" : "☁️";  //
-      case "Rain": return "🌧️";
-      case "Drizzle": return "🌦️";
-      case "Thunderstorm": return "⛈️";
-      case "Snow": return "❄️";
-      case "Atmosphere": return "🌫️";
-      default: return "⛅";
-    }
-  };
+  const { currentWeather, loading, unit, weeklyForecast } = useSelector(state => state.weather)
 
   const convertTemp = (temp) => {
-    if (unit === 'F') return Math.round(temp * 9 / 5 + 32);
-    return Math.round(temp);
-  };
-
-  if (loading || !currentWeather) {
-    return <div className='currentweather'>날씨 정보를 불러오는중...</div>
+    if (unit === 'F') return Math.round(temp * 9 / 5 + 32)
+    return Math.round(temp)
   }
 
-  const { name, main, weather, wind } = currentWeather;
+  const getWeatherEmoji = (main, id) => {
+    if (main === 'Clouds') return id === 801 ? '🌤️' : '☁️'
+    const map = {
+      Clear:        '☀️',
+      Rain:         '🌧️',
+      Drizzle:      '🌦️',
+      Thunderstorm: '⛈️',
+      Snow:         '❄️',
+      Atmosphere:   '🌫️',
+    }
+    return map[main] ?? '⛅'
+  }
 
+  const getTodayDateString = () =>
+    new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      month:   'short',
+      day:     'numeric',
+      year:    'numeric',
+    })
 
-  const weatherEmoji = getWeatherEmoji(weather[0].main, weather[0].id)
+  if (loading || !currentWeather) {
+    return <div className="currentweather">날씨 정보를 불러오는 중...</div>
+  }
 
-  const today = new Date();
-  const dateString = today.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
+  const { name, main, weather, wind } = currentWeather
+  const todayForecast = weeklyForecast?.[0]
+
+  const highLow = todayForecast
+    ? `${convertTemp(todayForecast.maxTemp)}° / ${convertTemp(todayForecast.minTemp)}°`
+    : `${convertTemp(main.temp_max)}° / ${convertTemp(main.temp_min)}°`
 
   return (
     <div className="currentweather">
       <div className="location">
         <p>CURRENT LOCATION</p>
         <h2>{name}</h2>
-        <span>{dateString}</span>
+        <span>{getTodayDateString()}</span>
       </div>
+
       <div className="icon">
-        <span>{weatherEmoji}</span>
+        <span>{getWeatherEmoji(weather[0].main, weather[0].id)}</span>
       </div>
+
       <div className="temp">
         <p>{convertTemp(main.temp)}</p>
         <span>°{unit}</span>
       </div>
+
       <div className="description">
         <p>{weather[0].description}</p>
       </div>
+
       <div className="detail">
         <div className="box">
           <div className="text">
@@ -76,12 +79,7 @@ const CurrentWeather = () => {
         <div className="box">
           <div className="text">
             <p>최고/최저</p>
-            <span>
-              {todayForecast
-                ? `${convertTemp(todayForecast.maxTemp)}° / ${convertTemp(todayForecast.minTemp)}°`
-                : `${convertTemp(main.temp_max)}° / ${convertTemp(main.temp_min)}°`
-              }
-            </span>
+            <span>{highLow}</span>
           </div>
         </div>
       </div>

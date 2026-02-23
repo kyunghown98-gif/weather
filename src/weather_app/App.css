@@ -15,6 +15,7 @@ body.dark {
   --chang_list: var(--bg);
   --marquee: var(--yellow);
   --bg-image: url(/weather/dark.png);
+  --background:url(/weather/background_y.png)
 }
 
 body.light {
@@ -25,6 +26,7 @@ body.light {
   --chang_list: #00469B;
   --marquee: var(--red);
   --bg-image: url(/weather/light.png);
+   --background:url(/weather/background_r.png)
 }
 
 * {
@@ -49,16 +51,62 @@ body {
   height: 100%;
 }
 
+.hidden-panel {
+  display: none !important;
+}
+
+.page-nav {
+  grid-column: 1 / 5;
+  display: flex;
+  border: 3px solid var(--red);
+}
+
+.page-nav button {
+  flex: 1;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  color: var(--chang_text);
+  opacity: 0.45;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s, color 0.2s;
+}
+
+.page-nav button:last-child {
+  border-right: none;
+}
+
+.page-nav button.active {
+  background: var(--chang_yellow);
+  color: var(--chang_red);
+  opacity: 1;
+}
+
+.page-nav button:not(.active):hover {
+  opacity: 0.75;
+  background: rgba(200, 43, 3, 0.08);
+}
+
+.btn-mobile {
+  display: none;
+}
+
 .main .main_i {
   max-width: 1440px;
-  height: calc(100vh - 146px);
+  height: calc(100vh - 122.5px);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto 1fr;
 }
 
 .list {
-  grid-column: 1/2;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
   display: grid;
   grid-template-rows: 1fr 1fr;
   border: 3px solid var(--red);
@@ -68,38 +116,128 @@ body {
 }
 
 .main .main_i .weather_infor {
-  grid-column: 2 / 4;
-  background-image: var(--bg-image);
+  grid-column: 2 / 5;
+  grid-row: 2 / 3;
+  background-image: var(--background);
   background-position: center;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   overflow: hidden;
+  border-right: 3px solid var(--red);
+  border-bottom: 3px solid var(--red);
 }
 
-.main .main_i .weather_infor > * {
+.main .main_i .weather_infor>* {
   min-height: 0;
   overflow: hidden;
   height: 100%;
 }
 
-.main .main_i .widgets {
-  grid-column: 4 / 5;
-  display: grid;
-  border: 3px solid var(--red);
-  overflow: hidden;
+.main .main_i .btn-mobile {
+  border-left: 3px solid var(--red);
+  border-right: 3px solid var(--red);
 }
 
-.widgets_f {
+.game-grid-panel {
+  grid-column: 1 / 5;
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+  background-image: var(--background);
+  background-position: center;
+}
+
+.game-slot {
+  border: 3px solid var(--red);
+  border-top: none;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+.game-slot:nth-child(2n-1){
+  border-right: none;
+}
+
+
+.game-slot:nth-child(even) {
+  border-left: 3px solid var(--red);
+}
+
+.game-slot .game {
+  flex: 1;
   height: 100%;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.widgets_f .box {
-  flex-shrink: 0;
+.game-slot--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0.25;
 }
 
-.widgets_f .ootd {
-  min-height: 0;
+.game-slot-label {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: var(--chang_text);
+}
+
+.game-slot-coming {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--chang_text);
+  border: 1px solid var(--red);
+  padding: 3px 8px;
+}
+
+.tablet-game-half {
+  display: none;
+}
+
+.mobile-game-panel {
+  display: none;
+}
+
+.game-corner-nav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 3px;
+  z-index: 10;
+}
+
+.game-corner-nav button {
+  background: none;
+  border: 2px solid var(--red);
+  color: var(--chang_text);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: background 0.15s, opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-weight: 900;
+}
+
+.game-corner-nav button.active {
+  background: var(--red);
+  color: #fff;
+  opacity: 1;
+}
+
+.game-corner-nav button:not(.active):hover {
+  opacity: 0.8;
 }

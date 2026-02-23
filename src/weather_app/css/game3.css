@@ -1,0 +1,111 @@
+/* Game3.css - 반응속도 테스트 */
+.game3-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(10px, 1.5vh, 16px);
+  min-height: 0;
+
+}
+
+.game3-title {
+   font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--chang_yellow);
+}
+
+.game3-desc {
+  color: #9ca3af;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.game3-box {
+  width: 280px;
+  height: 280px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.1s;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.game3-box.idle {
+  background: #1f2937;
+}
+
+.game3-box.waiting {
+  background: #dc2626;
+}
+
+.game3-box.ready {
+  background: #16a34a;
+}
+
+.game3-box.result {
+  background: #1f2937;
+}
+
+.game3-message {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.game3-time {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 4px 0;
+}
+
+.game3-grade {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.game3-grade.purple {
+  color: #a855f7;
+}
+
+.game3-grade.green {
+  color: #22c55e;
+}
+
+.game3-grade.blue {
+  color: #3b82f6;
+}
+
+.game3-grade.yellow {
+  color: #f59e0b;
+}
+
+.game3-best {
+  margin-top: 24px;
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 12px 32px;
+  font-size: 15px;
+  color: #facc15;
+  font-weight: bold;
+}
+
+@media (max-width: 850px) {
+  .game3-box {
+    width: 220px;
+    height: 220px;
+  }
+
+  .game3-title {
+    font-size: 22px;
+  }
+
+  .game3-time {
+    font-size: 32px;
+  }
+}

@@ -1,34 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { weatherAction } from './redux/weatherAction'
+
+import Header from './components/Header'
+import HeaderMarquee from './components/HeaderMarquee'
+import CurrentWeather from './components/CurrentWeather'
+import HourlyForecast from './components/HourlyForecast'
+import WeeklyForecast from './components/WeeklyForecast'
+import WeatherGraph from './components/WeatherGraph'
+import CityList from './components/CityList'
+import TodoList from './components/TodoList'
+import Game from './components/Game'
+import Game2 from './components/Game2'
+import Game3 from './components/Game3'
+import Game4 from './components/Game4'
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+// 앱 최초 실행 시 불러올 기본 위치 (대구)
+const DEFAULT_LOCATION = { lat: 35.8714, lon: 128.6014 }
+
+const App = () => {
+  const dispatch = useDispatch()
+  const theme    = useSelector(state => state.weather.theme)
+
+  useEffect(() => {
+    dispatch(weatherAction.weather(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lon))
+  }, [dispatch])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className={`app ${theme}`}>
+      <Header />
+      <HeaderMarquee />
+
+      <main className="layout">
+        <section className="col-left">
+          <CurrentWeather />
+          <CityList />
+        </section>
+
+        <section className="col-center">
+          <HourlyForecast />
+          <WeatherGraph />
+          <WeeklyForecast />
+        </section>
+
+        <section className="col-right">
+          <TodoList />
+          <Game />
+          <Game2 />
+          <Game3 />
+          <Game4 />
+        </section>
+      </main>
+    </div>
   )
 }
 

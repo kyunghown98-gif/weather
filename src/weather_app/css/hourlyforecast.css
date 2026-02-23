@@ -1,7 +1,6 @@
 .hourlyforecast {
   grid-row: 1 / 2;
   width: 100%;
-  max-width: 100%;
   overflow: hidden;
   position: relative;
   padding: clamp(8px, 1.5vh, 16px);
@@ -36,7 +35,6 @@
   align-items: center;
   width: 100%;
   padding: clamp(6px, 1vh, 12px) clamp(4px, 0.5vw, 8px);
-  box-sizing: border-box;
   font-size: clamp(10px, 1.1vw, 14px);
   color: var(--chang_yellow);
 }
@@ -44,9 +42,11 @@
 .hourlyforecast .swiper {
   display: flex;
   align-items: center;
-  height: 100%;
+  /* height: calc(100% - clamp(30px, 4vh, 50px)); */
+  padding: 3px 0;
 }
 
 .hourlyforecast .swiper-wrapper {
   align-items: center;
 }
+

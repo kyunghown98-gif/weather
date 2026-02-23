@@ -1,14 +1,14 @@
 .game {
-  padding: clamp(10px, 1.5vh, 16px);
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
   overflow: hidden;
+ 
 }
 
 .game-header {
   display: flex;
-  justify-content: space-between;
+  gap: 30px;
   align-items: center;
   margin-bottom: clamp(6px, 1vh, 12px);
   flex-shrink: 0;
