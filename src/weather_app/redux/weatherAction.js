@@ -7,7 +7,7 @@ import {
 
 const API_KEY = '66a0ab4dcf5f895d0b4df3f77c88297a'
 
-// ─── 공통 파싱 함수 ───────────────────────────────────────────
+
 
 // OpenWeatherMap 5일 예보 데이터를 날짜별로 묶어서 반환
 const parseWeeklyForecast = (forecastData) => {

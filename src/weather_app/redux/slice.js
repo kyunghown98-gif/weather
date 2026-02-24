@@ -31,11 +31,6 @@ const initialState = {
   gameCom:         null,
   gameResult:      '',
   gameScore:       { win: 0, draw: 0, lose: 0 },
-
-  // 할 일 목록
-  todos:           [],
-  todoFilter:      'ALL',
-  todoInput:       '',
 }
 
 const slice = createSlice({
@@ -114,24 +109,6 @@ const slice = createSlice({
       else if (result === 'DRAW') state.gameScore.draw += 1
       else if (result === 'LOSE') state.gameScore.lose += 1
     },
-
-    // 할 일 목록
-    addTodo(state, action) {
-      state.todos.push({ id: Date.now(), text: action.payload, done: false })
-    },
-    removeTodo(state, action) {
-      state.todos = state.todos.filter(todo => todo.id !== action.payload)
-    },
-    toggleTodo(state, action) {
-      const todo = state.todos.find(todo => todo.id === action.payload)
-      if (todo) todo.done = !todo.done
-    },
-    setTodoFilter(state, action) {
-      state.todoFilter = action.payload
-    },
-    setTodoInput(state, action) {
-      state.todoInput = action.payload
-    },
   },
 })
 
@@ -142,7 +119,6 @@ export const {
   setShowSearch, setSearchInput, setSearchResults,
   toggleTheme, setTheme, setUnit, setGraphType,
   setGameUser, setGameCom, setGameResult, updateGameScore,
-  addTodo, removeTodo, toggleTodo, setTodoFilter, setTodoInput,
 } = slice.actions
 
 export default slice.reducer

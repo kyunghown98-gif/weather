@@ -1,18 +1,19 @@
+/* Game4.css - 기억력 게임 */
 .game4-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: clamp(10px, 1.5vh, 16px);
   min-height: 0;
-
 }
 
 .game4-title {
-   font-size: clamp(14px, 1.5vw, 20px);
+  font-size: clamp(14px, 1.5vw, 20px);
   font-weight: bold;
   margin-bottom: 6px;
   color: var(--chang_yellow);
+  letter-spacing: 2px;
+  align-self: flex-start;
 }
 
 .game4-desc {
@@ -59,7 +60,7 @@
 }
 
 .game4-status.default {
-  color: var(--chang_yellow)
+  color: var(--chang_yellow);
 }
 
 .game4-grid {
@@ -70,8 +71,8 @@
 }
 
 .game4-color-btn {
-width: clamp(45px, 8vh, 90px);
-height: clamp(45px, 7vh, 90px);
+  width: clamp(45px, 8vh, 90px);
+  height: clamp(45px, 7vh, 90px);
   border-radius: 14px;
   transition: opacity 0.15s, box-shadow 0.15s;
 }
@@ -97,9 +98,11 @@ height: clamp(45px, 7vh, 90px);
   transition: background 0.2s;
 }
 
-
-
 @media (max-width: 850px) {
+  .game4-container {
+    padding-top: 45px;
+  }
+
   .game4-color-btn {
     width: 70px;
     height: 70px;

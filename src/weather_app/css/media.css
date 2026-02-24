@@ -111,7 +111,7 @@
     min-height: 70vh;
     overflow: hidden;
     flex: 1;
-     background-image: var(--bg-image);
+     background-image: var(--background);
   }
 
   .mobile-game-panel .tablet-game-half {

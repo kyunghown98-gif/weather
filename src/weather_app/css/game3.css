@@ -3,17 +3,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: clamp(10px, 1.5vh, 16px);
   min-height: 0;
-
 }
 
 .game3-title {
-   font-size: clamp(14px, 1.5vw, 20px);
+  font-size: clamp(14px, 1.5vw, 20px);
   font-weight: bold;
   margin-bottom: 8px;
   color: var(--chang_yellow);
+  letter-spacing: 2px;
+  align-self: flex-start;
 }
 
 .game3-desc {
@@ -96,6 +96,10 @@
 }
 
 @media (max-width: 850px) {
+  .game3-container {
+    padding-top: 45px;
+  }
+
   .game3-box {
     width: 220px;
     height: 220px;

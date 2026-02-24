@@ -1,10 +1,19 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setGraphType } from '../redux/slice'
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
 import '../css/weathergraph.css'
 
 const WeatherGraph = () => {
-  const dispatch       = useDispatch()
+  const dispatch = useDispatch()
   const { weeklyForecast, graphType, unit } = useSelector(state => state.weather)
 
   const convertTemp = (temp) => {
@@ -17,24 +26,23 @@ const WeatherGraph = () => {
     return days[new Date(dateString).getDay()]
   }
 
-  const getGraphData = () => {
-    if (!weeklyForecast) return []
-    switch (graphType) {
-      case 'temperature': return weeklyForecast.map(day => convertTemp(day.maxTemp))
-      case 'humidity':    return weeklyForecast.map(day => day.humidity)
-      case 'rainfall':    return weeklyForecast.map(day => day.rainfall ?? 0)
-      default:            return weeklyForecast.map(day => convertTemp(day.maxTemp))
-    }
+  const getUnit = () => {
+    if (graphType === 'temperature') return `°${unit}`
+    if (graphType === 'humidity')    return '%'
+    return 'mm'
   }
 
   if (!weeklyForecast?.length) {
     return <div className="weathergraph"><p>주간 예보 데이터를 불러오는 중...</p></div>
   }
 
-  const graphData = getGraphData()
-  const maxValue  = Math.max(...graphData)
-  const minValue  = Math.min(...graphData)
-  const range     = maxValue - minValue || 1
+  // Recharts에 넘길 데이터 형태로 변환
+  const chartData = weeklyForecast.map(day => ({
+    day:         getDayName(day.date),
+    temperature: convertTemp(day.maxTemp),
+    humidity:    day.humidity,
+    rainfall:    day.rainfall ?? 0,
+  }))
 
   return (
     <div className="weathergraph">
@@ -54,73 +62,57 @@ const WeatherGraph = () => {
       </div>
 
       <div className="graph-container">
-        <svg className="graph-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stopColor="#3a3a2a" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#3a3a2a" stopOpacity="0.1" />
-            </linearGradient>
-          </defs>
+        
+        <ResponsiveContainer width="100%" height={220}>
+          <AreaChart data={chartData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
+            <defs>
+              <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%"  stopColor="var(--marquee)" stopOpacity={0.5} />
+                <stop offset="95%" stopColor="var(--marquee)" stopOpacity={0.05} />
+              </linearGradient>
+            </defs>
 
-          <path
-            d={`
-              M 0 ${200 - ((graphData[0] - minValue) / range) * 150}
-              ${graphData.map((value, index) => {
-                const x = (index / (graphData.length - 1)) * 600
-                const y = 200 - ((value - minValue) / range) * 150
-                return `L ${x} ${y}`
-              }).join(' ')}
-              L 600 200 L 0 200 Z
-            `}
-            fill="url(#areaGradient)"
-          />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
 
-          <path
-            d={`
-              M 0 ${200 - ((graphData[0] - minValue) / range) * 150}
-              ${graphData.map((value, index) => {
-                const x = (index / (graphData.length - 1)) * 600
-                const y = 200 - ((value - minValue) / range) * 150
-                return `L ${x} ${y}`
-              }).join(' ')}
-            `}
-            stroke="var(--marquee)"
-            strokeWidth="3"
-            fill="none"
-          />
-
-          {graphData.map((value, index) => (
-            <circle
-              key={index}
-              cx={(index / (graphData.length - 1)) * 600}
-              cy={200 - ((value - minValue) / range) * 150}
-              r="5"
-              fill="var(--marquee)"
+            <XAxis
+              dataKey="day"
+              tick={{ fill: 'var(--text-sub, #aaa)', fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
             />
-          ))}
-        </svg>
 
-        <div className="graph-values">
-          {graphData.map((value, index) => (
-            <div
-              key={index}
-              className="graph-value"
-              style={{
-                left: `${(index / (graphData.length - 1)) * 100}%`,
-                top:  `${100 - ((value - minValue) / range) * 75}%`,
+            <YAxis
+              tick={{ fill: 'var(--text-sub, #aaa)', fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={v => `${v}${getUnit()}`}
+              width={55}
+            />
+
+          
+            <Tooltip
+              contentStyle={{
+                background: 'var(--card-bg, #1e1e1e)',
+                border:     '1px solid var(--border, #333)',
+                borderRadius: '8px',
+                color:      'var(--text, #fff)',
+                fontSize:   '13px',
               }}
-            >
-              {graphType === 'temperature' ? `${value}°${unit}` :
-               graphType === 'humidity'    ? `${value}%`        : `${value}mm`}
-            </div>
-          ))}
-        </div>
+              formatter={v => [`${v}${getUnit()}`, graphType.toUpperCase()]}
+              labelStyle={{ color: 'var(--marquee)', fontWeight: 'bold' }}
+            />
 
-        <div className="graph-labels">
-          {weeklyForecast.map((day, index) => (
-            <div key={index} className="graph-label">{getDayName(day.date)}</div>
-          ))}
-        </div>
+            <Area
+              type="monotone"
+              dataKey={graphType}
+              stroke="var(--marquee)"
+              strokeWidth={3}
+              fill="url(#areaGradient)"
+              dot={{ fill: 'var(--marquee)', r: 5, strokeWidth: 0 }}
+              activeDot={{ r: 7 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   )
