@@ -34,30 +34,6 @@ const App = () => {
   useEffect(() => { getCurrentLocation() }, [])
   useEffect(() => { document.body.className = theme }, [theme])
 
-  useEffect(() => {
-    const TABLET = 1024
-    const MOBILE = 850
-
-    const getBreakpoint = () => {
-      if (window.innerWidth <= MOBILE) return 'mobile'
-      if (window.innerWidth <= TABLET) return 'tablet'
-      return 'desktop'
-    }
-
-    let prevBreakpoint = getBreakpoint()
-
-    const handleResize = () => {
-      const curr = getBreakpoint()
-      if (curr !== prevBreakpoint) {
-        prevBreakpoint = curr
-        setActivePage('weather')
-      }
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   const renderGame = (num) => {
     if (num === 1) return <Game />
     if (num === 2) return <Game2 />
@@ -108,12 +84,7 @@ const App = () => {
             >WEATHER</button>
 
             <button
-              className={`btn-desktop-tablet ${activePage === 'widgets' ? 'active' : ''}`}
-              onClick={() => setActivePage('widgets')}
-            >GAME</button>
-
-            <button
-              className={`btn-mobile ${activePage === 'game' ? 'active' : ''}`}
+              className={activePage === 'game' ? 'active' : ''}
               onClick={() => setActivePage('game')}
             >GAME</button>
           </div>
@@ -131,15 +102,13 @@ const App = () => {
           </div>
 
           {/* ══ GAME 탭 (데스크탑·태블릿) ══ */}
-          <div className={`game-grid-panel ${activePage !== 'widgets' ? 'hidden-panel' : ''}`}>
-
+          <div className={`game-grid-panel ${activePage !== 'game' ? 'hidden-panel' : ''}`}>
             <div className="game-slot desktop-slot"><Game /></div>
             <div className="game-slot desktop-slot"><Game2 /></div>
             <div className="game-slot desktop-slot"><Game3 /></div>
             <div className="game-slot desktop-slot"><Game4 /></div>
 
             {renderTabletMobileGames()}
-
           </div>
 
           {/* ══ 모바일 GAME 탭 ══ */}
