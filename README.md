@@ -39,39 +39,8 @@ Swiper.js를 활용한 슬라이드 방식의 시간별 예보
 - React-fast-marquee
 
 ## 🗂️ 컴포넌트 구조
-src/
-├── redux/
-│   ├── store.js              # Redux 스토어 설정
-│   ├── slice.js              # 전체 상태 정의 및 리듀서
-│   └── weatherAction.js      # 비동기 액션 
-├── component/
-│   ├── Header.jsx             # 검색바, 테마·단위 토글
-│   ├── HeaderMarquee.jsx      # 실시간 시각 + 스크롤 문구
-│   ├── CurrentWeather.jsx     # 현재 날씨 카드
-│   ├── HourlyForecast.jsx     # 시간별 예보 
-│   ├── WeeklyForecast.jsx     # 5일 예보 + 온도 범위 바
-│   ├── WeatherGraph.jsx       # 날씨 그래프
-│   ├── CityList.jsx           # 저장 도시 목록
-│   ├── Game.jsx               # 가위바위보
-│   ├── Game2.jsx              # 숫자 맞추기
-│   ├── Game3.jsx              # 반응속도 테스트
-│   └── Game4.jsx              # 기억력 게임 
-├── css/
-│   ├── header.css             # 헤더 스타일
-│   ├── HeaderMarquee.css      # 마퀴 스타일
-│   ├── currentweather.css     # 현재 날씨 스타일
-│   ├── hourlyforecast.css     # 시간별 예보 스타일
-│   ├── weeklyforecast.css     # 주간 예보 스타일
-│   ├── weathergraph.css       # 그래프 스타일
-│   ├── citylist.css           # 도시 목록 스타일
-│   ├── todolist.css           # 할 일 목록 스타일
-│   ├── game.css               # 가위바위보 스타일
-│   ├── game2.css              # 숫자 맞추기 스타일
-│   ├── game3.css              # 반응속도 테스트 스타일
-│   ├── game4.css              # 기억력 게임 스타일
-│   └── media.css              # 반응형 미디어 쿼리
-├── App.css                    # 전체 레이아웃 스타일
-└── App.jsx                    # 레이아웃 및 페이지 분기
+<img width="680" height="686" alt="스크린샷 2026-03-06 070510" src="https://github.com/user-attachments/assets/aa0fe9a0-6abb-4b90-a2aa-841936d0ea0e" />
+
 
 ## 🚀 차별화 포인트 (Key Points)
 -독창적인 테마 시스템: 단순히 밝고 어두운 차이를 넘어, 사이버펑크와 레트로라는 명확한 컨셉 아트를 UI에 녹여내어 디자인 역량을 강조했습니다.
